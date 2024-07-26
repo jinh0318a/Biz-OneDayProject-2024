@@ -11,5 +11,8 @@
 </script>
 <link href="${rootPath }/static/css/home.css" rel="stylesheet">
 <link href="${rootPath }/static/css/memo/list.css" rel="stylesheet">
+<link href="${rootPath }/static/css/memo/detail.css" rel="stylesheet">
+<link href="${rootPath }/static/css/memo/update.css" rel="stylesheet">
+<link href="${rootPath }/static/css/memo/insert.css" rel="stylesheet">
 <script src="${rootPath }/static/js/memo/list.js"></script>
 </head>

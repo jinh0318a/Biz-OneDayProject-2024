@@ -10,11 +10,12 @@
 			value="/WEB-INF/views/include/head.jsp" />
 		<put-attribute name="header"
 			value="/WEB-INF/views/include/header.jsp" />
+		<put-attribute name="list"
+			value="/WEB-INF/views/memo/list.jsp" />
 	</definition>
 
 	<definition name="home" extends="default">
-		<put-attribute name="content"
-			value="/WEB-INF/views/memo/list.jsp" />
+		<put-attribute name="content" value="" />
 	</definition>
 
 	<definition name="detail" extends="default">
