@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.callor.memo.dao.MemoDao">
+
+	<insert id="insert">
+		insert into tbl_memo(m_author, m_date, m_time,
+		m_title,
+		m_memo, m_image) values (#{m_author}, #{m_date},
+		#{m_time},
+		#{m_title} ,#{m_memo},
+		#{m_image})
+	</insert>
+
+	<update id="update">
+		update tbl_memo set m_author=#{m_author},
+		m_date=#{m_date},
+		m_time=#{m_time},
+		m_title=#{m_title},
+		m_memo=#{m_memo},
+		m_image=#{m_image} where
+		m_seq=#{m_seq}
+	</update>
+
+</mapper> 
