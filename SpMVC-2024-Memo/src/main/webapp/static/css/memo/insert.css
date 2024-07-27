@@ -1,0 +1,59 @@
+@charset "UTF-8";
+div.memo.insert {
+  margin: 20;
+  padding: 20px;
+  visibility: hidden;
+  flex: 1;
+
+  form.memo.insert {
+    width: 100%;
+  }
+  fieldset {
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 0 10px;
+  }
+
+  div {
+    margin-bottom: 15px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+
+  textarea {
+    height: 150px;
+    resize: none;
+  }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+}

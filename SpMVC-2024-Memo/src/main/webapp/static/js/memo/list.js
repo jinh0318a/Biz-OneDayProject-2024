@@ -32,6 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
     insert.style.visibility = "visible";
   };
 
-  memo_data.addEventListener("click", onDataClickHandler);
-  btn_clock.addEventListener("click", onCurrentTime);
+  memo_data?.addEventListener("click", onDataClickHandler);
+  btn_clock?.addEventListener("click", onCurrentTime);
 });

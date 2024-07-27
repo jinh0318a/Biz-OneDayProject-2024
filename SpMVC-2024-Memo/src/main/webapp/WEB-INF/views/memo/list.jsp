@@ -17,7 +17,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="${MemoList }" var="one">
+			<c:forEach items="${sessionScope.MemoList }" var="one">
 				<tr data-m_seq="${one.m_seq }">
 					<td>${one.m_seq }</td>
 					<td>${one.m_title }</td>

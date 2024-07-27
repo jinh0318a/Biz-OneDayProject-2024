@@ -1,8 +1,50 @@
 @charset "UTF-8";
 
-div.memo.insert {
-  visibility: hidden;
+div.memo.list {
+  margin: 20;
+  padding: 20px;
   flex: 1;
-  margin-right: auto;
-  margin-left: 20px;
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #007bff;
+    color: #ffffff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #0056b3;
+  }
+
+  table.memo.list {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+
+    thead {
+      background-color: #343a40;
+      color: #ffffff;
+    }
+
+    thead td {
+      padding: 10px;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    tbody td {
+      padding: 10px;
+    }
+  }
 }

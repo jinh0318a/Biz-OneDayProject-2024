@@ -8,7 +8,9 @@
 <tiles:insertAttribute name="head" />
 <body>
 	<tiles:insertAttribute name="header" />
-	<tiles:insertAttribute name="list" />
-	<tiles:insertAttribute name="content" />
+	<section>
+		<tiles:insertAttribute name="list" />
+		<tiles:insertAttribute name="content" />
+	</section>
 </body>
 </html>

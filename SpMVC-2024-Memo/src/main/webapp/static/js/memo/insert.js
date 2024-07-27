@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const getByteLength = (str) => new TextEncoder().encode(str).length;
 
-  form.addEventListener("submit", (event) => {
+  form?.addEventListener("submit", (event) => {
     const input_title = document.querySelector("#m_title");
     const input_memo = document.querySelector("#m_memo");
 

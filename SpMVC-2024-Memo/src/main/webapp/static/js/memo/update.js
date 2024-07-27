@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form.memo.update");
 
-  form.addEventListener("submit", (event) => {
+  form?.addEventListener("submit", (event) => {
     const inputTitle = document.querySelector("#m_title");
     const inputMemo = document.querySelector("#m_memo");
 

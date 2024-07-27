@@ -3,7 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set value="${pageContext.request.contextPath }" var="rootPath" />
 
-<section class="memo update">
+<div class="memo update">
 	<form method="post" class="memo update">
 		<fieldset>
 			<legend>메모 수정</legend>
@@ -25,4 +25,4 @@
 			</div>
 		</fieldset>
 	</form>
-</section>
+</div>

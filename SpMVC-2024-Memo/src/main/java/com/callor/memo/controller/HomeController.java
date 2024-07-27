@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +28,9 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Model model) {
-
+	public String home(HttpSession session) {
 		List<MemoVO> memoList = memoService.findAll();
-
-		model.addAttribute("MemoList", memoList);
-
+		session.setAttribute("MemoList", memoList);
 		return "home";
 	}
 
@@ -57,7 +56,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(MemoVO memoVO, Model model) {
+	public String update(MemoVO memoVO, Model model, HttpSession session) {
 		memoVO.setM_author("jinh0318a@naver.com");
 		Date date = new Date();
 		SimpleDateFormat day = new SimpleDateFormat("yyyy-MM-dd");
@@ -70,6 +69,8 @@ public class HomeController {
 		String m_seq = memoVO.getM_seq();
 		if (result > 0) {
 			model.addAttribute(memoVO);
+			List<MemoVO> memoList = memoService.findAll();
+			session.setAttribute("MemoList", memoList);
 			return "redirect:/memo/detail?m_seq=" + m_seq;
 		}
 		return "redirect:/";
