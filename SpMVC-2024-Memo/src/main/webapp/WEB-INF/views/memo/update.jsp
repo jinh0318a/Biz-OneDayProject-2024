@@ -20,7 +20,7 @@
 				<label>이미지</label><input type="text" name="m_image"
 					value="<c:out value='${MEMO.m_image }'/>" />
 			</div>
-			<div>
+			<div class="button">
 				<button>수정</button>
 			</div>
 		</fieldset>

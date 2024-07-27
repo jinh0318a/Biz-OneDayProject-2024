@@ -18,7 +18,7 @@
 			<div>
 				<label>이미지</label><input type="text" name="m_image" />
 			</div>
-			<div>
+			<div class="button">
 				<button type="submit" id="insert">작성</button>
 			</div>
 		</fieldset>

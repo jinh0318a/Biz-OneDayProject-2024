@@ -43,6 +43,10 @@ div.memo.insert {
     resize: none;
   }
 
+  div.button {
+    text-align: right;
+  }
+
   button {
     padding: 10px 20px;
     border: none;
