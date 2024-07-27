@@ -15,7 +15,8 @@
 	</definition>
 
 	<definition name="home" extends="default">
-		<put-attribute name="content" value="" />
+		<put-attribute name="content"
+			value="/WEB-INF/views/memo/insert.jsp" />
 	</definition>
 
 	<definition name="detail" extends="default">
