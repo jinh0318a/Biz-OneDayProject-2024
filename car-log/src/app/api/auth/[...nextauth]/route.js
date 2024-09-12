@@ -1,7 +1,5 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GithubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/google";
 import { userFindById } from "../../user";
 import bcrypt from "bcrypt";
 
@@ -35,8 +33,15 @@ const handler = NextAuth({
     }),
   ],
   callbacks: {
-    async session({ session, token }) {
-      session.user = token;
+    async session({ session, user }) {
+      // Ensure user object has necessary fields
+      if (user) {
+        session.user = {
+          id: user.id,
+          username: user.username,
+          realname: user.realname,
+        };
+      }
       return session;
     },
   },
