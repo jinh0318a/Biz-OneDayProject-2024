@@ -8,23 +8,18 @@ datasource db {
 }
 
 model tbl_records {
-  r_no       Int        @id @default(autoincrement())
-  r_div      String     @db.VarChar(20)
-  r_start    String     @db.VarChar(30)
-  r_end      String?    @db.VarChar(30)
-  r_dis      Int?
-  r_cost     Int?
-  r_place    String?    @db.VarChar(100)
-  r_username String?    @db.VarChar(20)
-  tbl_users  tbl_users? @relation(fields: [r_username], references: [username], onDelete: Cascade, onUpdate: NoAction, map: "fk_user")
-
-  @@index([r_username], map: "fk_user")
+  r_no    Int     @id @default(autoincrement())
+  r_div   String  @db.VarChar(20)
+  r_start String  @db.VarChar(30)
+  r_end   String? @db.VarChar(30)
+  r_dis   Int?
+  r_cost  Int?
+  r_place String? @db.VarChar(100)
 }
 
 model tbl_users {
-  username    String        @id @db.VarChar(20)
-  realname    String        @db.VarChar(20)
-  password    String        @db.VarChar(255)
-  email       String        @db.VarChar(30)
-  tbl_records tbl_records[]
+  username String @id @db.VarChar(20)
+  realname String @db.VarChar(20)
+  password String @db.VarChar(255)
+  email    String @db.VarChar(30)
 }
