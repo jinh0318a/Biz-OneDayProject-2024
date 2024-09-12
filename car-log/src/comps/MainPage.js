@@ -78,7 +78,7 @@ const MainPage = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="main form">
         <div>
           <input
             placeholder="구분"
@@ -136,20 +136,24 @@ const MainPage = () => {
 
         <button type="submit">추가</button>
       </form>
-      <ul>
+      <ul className="record">
+        <li>구분 - 시작일시 - 종료일시 - 현재거리 - 소요비용 - 장소</li>
         {records.map((record) => (
-          <li key={record.r_no}>
-            {record.r_div} - {record.r_start} - {record.r_end} - {record.r_dis}{" "}
-            - {record.r_cost} - {record.r_place} - {record.r_username}
-            <button onClick={() => handleDelete(record.r_no)}>삭제</button>
-            <button
-              onClick={() =>
-                handleUpdate(record.r_no, { r_end: "updated_value" })
-              }
-            >
-              수정
-            </button>
-          </li>
+          <>
+            <li key={record.r_no}>
+              {record.r_div} - {record.r_start} - {record.r_end} -{" "}
+              {record.r_dis} - {record.r_cost} - {record.r_place} -{" "}
+              {record.r_username}
+              <button onClick={() => handleDelete(record.r_no)}>삭제</button>
+              <button
+                onClick={() =>
+                  handleUpdate(record.r_no, { r_end: "updated_value" })
+                }
+              >
+                수정
+              </button>
+            </li>
+          </>
         ))}
       </ul>
     </>

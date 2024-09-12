@@ -5,7 +5,7 @@ const MainNav = () => {
   const { data: session } = useSession();
 
   return (
-    <ul>
+    <ul className="nav">
       {session?.user ? (
         <li>
           <Link href="#" onClick={() => signOut()}>

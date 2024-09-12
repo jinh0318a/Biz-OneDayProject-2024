@@ -40,3 +40,25 @@ a {
     color-scheme: dark;
   }
 }
+
+ul.nav {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 3px auto;
+  padding: 5px;
+  text-align: center;
+}
+
+form.main.form {
+  display: flex;
+  margin: 3px auto;
+  gap: 5px;
+}
+
+ul.record {
+  list-style: none;
+  margin: 3px auto;
+  padding: 5px;
+  text-align: center;
+}
