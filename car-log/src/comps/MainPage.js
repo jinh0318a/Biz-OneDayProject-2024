@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 const formatDateTime = (dateTime) => {
   if (!dateTime) return "";
@@ -131,7 +132,14 @@ const MainPage = () => {
   }
 
   if (!session) {
-    return <div className="login">로그인이 필요합니다.</div>; // 세션이 없을 때
+    return (
+      <div class="login">
+        <Link href="/api/auth/signin" className="login">
+          로그인
+        </Link>
+        이 필요합니다
+      </div>
+    ); // 세션이 없을 때
   }
 
   return (
