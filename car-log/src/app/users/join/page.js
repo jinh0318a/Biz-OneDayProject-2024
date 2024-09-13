@@ -11,6 +11,7 @@ const inputTags = {
 const JoinPage = () => {
   const createUser = async (formData) => {
     "use server";
+
     const rawFormData = {
       username: formData.get(inputTags.username),
       password: formData.get(inputTags.password),
@@ -46,7 +47,7 @@ const JoinPage = () => {
         <input placeholder="이메일" type="email" name={inputTags.email} />
       </div>
       <div>
-        <input type="submit" value="회원가입" />
+        <input type="submit" value="회원가입" className="button" />
       </div>
     </form>
   );

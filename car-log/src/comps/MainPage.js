@@ -2,6 +2,11 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 
+const formatDateTime = (dateTime) => {
+  if (!dateTime) return "";
+  return dateTime.replace("T", " ");
+};
+
 const MainPage = () => {
   const { data: session, status } = useSession();
 
@@ -13,7 +18,7 @@ const MainPage = () => {
     r_cost: "",
     r_place: "",
     r_no: null,
-    r_username: "", // 초기값은 빈 문자열
+    r_username: "",
   });
 
   const [records, setRecords] = useState([]);
@@ -37,13 +42,26 @@ const MainPage = () => {
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "number" ? (value === "" ? 0 : Number(value)) : value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!session) return; // 세션이 없으면 요청하지 않음
+    if (!session) return;
+
+    const requestData = {
+      r_div: form.r_div,
+      r_start: form.r_start,
+      r_end: form.r_end,
+      r_dis: Number(form.r_dis) || 0,
+      r_cost: Number(form.r_cost) || 0,
+      r_place: form.r_place,
+      r_username: session.user.name,
+    };
 
     if (form.r_no) {
       // Update request
@@ -54,15 +72,7 @@ const MainPage = () => {
         },
         body: JSON.stringify({
           r_no: form.r_no,
-          updateData: {
-            r_div: form.r_div,
-            r_start: form.r_start,
-            r_end: form.r_end,
-            r_dis: form.r_dis,
-            r_cost: form.r_cost,
-            r_place: form.r_place,
-            r_username: session.user.name, // 사용자 이름 포함
-          },
+          updateData: requestData,
         }),
       });
     } else {
@@ -72,13 +82,11 @@ const MainPage = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          ...form,
-          r_username: session.user.name, // 사용자 이름 포함
-        }),
+        body: JSON.stringify(requestData),
       });
     }
-    // 폼 초기화 및 기록 다시 가져오기
+
+    // Reset form and fetch records again
     setForm({
       r_div: "",
       r_start: "",
@@ -87,7 +95,7 @@ const MainPage = () => {
       r_cost: "",
       r_place: "",
       r_no: null,
-      r_username: session.user.name || "", // 사용자 이름 설정
+      r_username: session.user.name || "",
     });
     fetchRecords(session?.user.name);
   };
@@ -119,87 +127,98 @@ const MainPage = () => {
   };
 
   if (status === "loading") {
-    return <div>로딩 중...</div>; // 세션 로딩 중일 때 로딩 상태 표시
+    return <div className="load">로딩 중...</div>; // 세션 로딩 중일 때 로딩 상태 표시
   }
 
   if (!session) {
-    return <div>로그인이 필요합니다.</div>; // 세션이 없을 때
+    return <div className="login">로그인이 필요합니다.</div>; // 세션이 없을 때
   }
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="main form">
-        <div>
-          <input
-            placeholder="구분"
-            name="r_div"
-            type="text"
-            value={form.r_div}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            placeholder="시작일시"
-            name="r_start"
-            type="datetime-local"
-            value={form.r_start}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            placeholder="종료일시"
-            name="r_end"
-            type="datetime-local"
-            value={form.r_end}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            placeholder="현재거리"
-            name="r_dis"
-            type="number"
-            value={form.r_dis}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            placeholder="소요비용"
-            name="r_cost"
-            type="number"
-            value={form.r_cost}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <input
-            placeholder="장소"
-            name="r_place"
-            type="text"
-            value={form.r_place}
-            onChange={handleChange}
-          />
-        </div>
+      <section className="main">
+        <form onSubmit={handleSubmit} className="main form">
+          <div>
+            <input
+              placeholder="구분"
+              name="r_div"
+              type="text"
+              value={form.r_div}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <input
+              placeholder="시작일시"
+              name="r_start"
+              type="datetime-local"
+              value={form.r_start}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <input
+              placeholder="종료일시"
+              name="r_end"
+              type="datetime-local"
+              value={form.r_end}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <input
+              placeholder="현재거리(km)"
+              name="r_dis"
+              type="text"
+              value={form.r_dis}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <input
+              placeholder="소요비용(원)"
+              name="r_cost"
+              type="text"
+              value={form.r_cost}
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <input
+              placeholder="장소"
+              name="r_place"
+              type="text"
+              value={form.r_place}
+              onChange={handleChange}
+            />
+          </div>
 
-        <button type="submit" className="form button">
-          {form.r_no ? "수정" : "추가"}
-        </button>
-      </form>
-      <ul className="record">
-        <li>구분 - 시작일시 - 종료일시 - 현재거리 - 소요비용 - 장소</li>
-        {records.map((record) => (
-          <li key={record.r_no}>
-            <span>{record.r_div}</span> - <span>{record.r_start}</span> -
-            <span>{record.r_end}</span> - <span>{record.r_dis}</span> -
-            <span>{record.r_cost}</span> - <span>{record.r_place}</span>
-            <button onClick={() => handleDelete(record.r_no)}>삭제</button>
-            <button onClick={() => handleUpdate(record)}>수정</button>
+          <button type="submit" className="form button">
+            {form.r_no ? "수정" : "추가"}
+          </button>
+        </form>
+        <ul className="record">
+          <li>
+            <span>구분</span> <span className="date">시작일시</span>
+            <span className="date">종료일시</span> <span>현재거리</span>
+            <span>소요비용</span> <span>장소</span>
+            <button className="hidden"></button>
+            <button className="hidden"></button>
           </li>
-        ))}
-      </ul>
+          {records.map((record) => (
+            <li key={record.r_no}>
+              <span>{record.r_div}</span>
+              <span className="date">{formatDateTime(record.r_start)}</span>
+              <span className="date">{formatDateTime(record.r_end)}</span>
+              <span>{record.r_dis ? `${record.r_dis}km` : ""}</span>
+              <span>{record.r_cost ? `${record.r_cost}원` : ""}</span>
+              <span>{record.r_place}</span>
+              <button onClick={() => handleDelete(record.r_no)}>삭제</button>
+              <button onClick={() => handleUpdate(record)}>수정</button>
+            </li>
+          ))}
+        </ul>
+      </section>
     </>
   );
 };
