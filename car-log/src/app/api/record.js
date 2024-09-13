@@ -6,8 +6,7 @@ export default async function handler(req, res) {
   switch (req.method) {
     case "POST":
       // 추가
-      const { r_div, r_start, r_end, r_dis, r_cost, r_place, r_username } =
-        req.body;
+      const { r_div, r_start, r_end, r_dis, r_cost, r_place } = req.body;
       const newRecord = await prisma.tbl_records.create({
         data: {
           r_div,
@@ -16,7 +15,6 @@ export default async function handler(req, res) {
           r_dis,
           r_cost,
           r_place,
-          r_username,
         },
       });
       res.status(201).json(newRecord);

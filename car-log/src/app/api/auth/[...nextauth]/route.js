@@ -20,46 +20,28 @@ const handler = NextAuth({
       async authorize(loginUser) {
         const { username, password } = loginUser;
 
-        // 사용자 찾기
         const user = await userFindById(username);
 
         if (!user) {
-          // 사용자가 존재하지 않으면 인증 실패
           return null;
         }
 
-        // 사용자명 비교
         if (user.username !== username) {
           return null;
         }
 
-        // 비밀번호 비교
         const bYes = await bcrypt.compare(password, user.password);
         if (!bYes) {
           return null;
         }
 
-        return {
-          username: user.username,
-          realname: user.realname,
-          email: user.email,
-          // 비밀번호는 포함하지 않음
-        };
+        return { ...user, password: undefined, name: user.username };
       },
     }),
   ],
   callbacks: {
-    async session({ session, user }) {
-      if (user) {
-        session.user = {
-          username: user.username,
-          realname: user.realname,
-          email: user.email,
-        };
-      } else {
-        // If user is not available, you might want to handle this case.
-        console.log("No user data in session callback");
-      }
+    async session({ session, token }) {
+      session.user = token;
       return session;
     },
   },

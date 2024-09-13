@@ -14,7 +14,7 @@ const LoginPage = () => {
   }, [user]);
 
   return (
-    <form>
+    <form className="login">
       <fieldset>
         <legend>로그인</legend>
         <input
@@ -33,7 +33,12 @@ const LoginPage = () => {
             setUser({ ...user, password: e.target.value });
           }}
         />
-        <input type="button" value="로그인" onClick={onLoginHandler} />
+        <input
+          className="button"
+          type="button"
+          value="로그인"
+          onClick={onLoginHandler}
+        />
       </fieldset>
     </form>
   );

@@ -9,12 +9,6 @@ const inputTags = {
 };
 
 const JoinPage = () => {
-  const formStyle = {
-    width: "60%",
-    margin: "10px auto",
-    border: "1px solid green",
-  };
-
   const createUser = async (formData) => {
     "use server";
     const rawFormData = {
@@ -28,7 +22,8 @@ const JoinPage = () => {
   };
 
   return (
-    <form style={formStyle} action={createUser} method="POST">
+    <form action={createUser} method="POST" className="join">
+      <h1>회원가입</h1>
       <div>
         <input placeholder="USERNAME" type="text" name={inputTags.username} />
       </div>

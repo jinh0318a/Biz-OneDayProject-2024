@@ -1,6 +1,7 @@
 import MainNav from "@/comps/MainNav";
 import styles from "./page.module.css";
 import MainPage from "@/comps/MainPage";
+import "@/css/main.css";
 
 export default function Home() {
   return (

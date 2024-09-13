@@ -2,13 +2,36 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function GET() {
-  // 모든 레코드 가져오기
-  const records = await prisma.tbl_records.findMany();
-  return new Response(JSON.stringify(records), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+export async function GET(req) {
+  try {
+    // 요청 URL에서 쿼리 파라미터를 추출합니다
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const username = url.searchParams.get("username");
+
+    // 사용자 이름이 없는 경우
+    if (!username) {
+      return new Response(
+        JSON.stringify({ error: "사용자 이름이 필요합니다" }),
+        { status: 400 }
+      );
+    }
+
+    // 사용자 이름으로 기록을 필터링합니다
+    const records = await prisma.tbl_records.findMany({
+      where: { r_username: username },
+    });
+
+    return new Response(JSON.stringify(records), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    console.error("기록을 가져오는 중 오류 발생:", error);
+    return new Response(
+      JSON.stringify({ error: "기록을 가져오는 중 오류 발생" }),
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(request) {

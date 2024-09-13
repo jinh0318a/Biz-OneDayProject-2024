@@ -9,7 +9,7 @@ const MainNav = () => {
       {session?.user ? (
         <li>
           <Link href="#" onClick={() => signOut()}>
-            로그아웃({session?.user.email})
+            로그아웃({session?.user.name})
           </Link>
         </li>
       ) : (
